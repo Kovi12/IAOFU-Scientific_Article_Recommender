@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:ex="http://example.org/">
+    <!-- Define Classes -->
+    <owl:Class rdf:about="http://example.org/Document"/>
+    <owl:Class rdf:about="http://example.org/Author"/>
+    <owl:Class rdf:about="http://example.org/Concept"/>
+    <owl:Class rdf:about="http://example.org/Reference"/>
+
+    <!-- Define Properties -->
+    <owl:ObjectProperty rdf:about="http://example.org/hasAuthor"/>
+    <owl:ObjectProperty rdf:about="http://example.org/hasConcept"/>
+    <owl:ObjectProperty rdf:about="http://example.org/hasReference"/>
+    <owl:DatatypeProperty rdf:about="http://example.org/hasTitle"/>
+    <owl:DatatypeProperty rdf:about="http://example.org/hasAbstract"/>
+
+    <!-- The Prompt Report -->
+    <rdf:Description rdf:about="http://example.org/ThePromptReport">
+        <rdf:type rdf:resource="http://example.org/Document"/>
+        <ex:hasTitle>The Prompt Report: A Systematic Survey of Prompting Techniques</ex:hasTitle>
+        <ex:hasAbstract>
+            Generative Artificial Intelligence (GenAI) systems are increasingly deployed across various domains, and developers interact with them through prompting techniques. This paper surveys these techniques, proposes a taxonomy, and establishes a structured vocabulary.
+        </ex:hasAbstract>
+        <ex:hasAuthor rdf:resource="http://example.org/sander-schulhoff"/>
+        <ex:hasAuthor rdf:resource="http://example.org/michael-ilie"/>
+        <ex:hasAuthor rdf:resource="http://example.org/nishant-balepur"/>
+        <ex:hasAuthor rdf:resource="http://example.org/kostantine-kahadze"/>
+        <ex:hasAuthor rdf:resource="http://example.org/amanda-liu"/>
+        <ex:hasConcept rdf:resource="http://example.org/Prompting-Techniques"/>
+        <ex:hasReference rdf:resource="http://example.org/wei2022-cot"/>
+        <ex:hasReference rdf:resource="http://example.org/brown2020-few-shot"/>
+    </rdf:Description>
+
+    <!-- Chain-of-Thought Prompting -->
+    <rdf:Description rdf:about="http://example.org/ChainOfThoughtPrompting">
+        <rdf:type rdf:resource="http://example.org/Document"/>
+        <ex:hasTitle>Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</ex:hasTitle>
+        <ex:hasAbstract>
+            Explores how generating a chain of thought—a series of intermediate reasoning steps—improves reasoning performance in large language models. Introduces 'chain-of-thought prompting' and demonstrates its efficacy on arithmetic, commonsense, and symbolic reasoning tasks.
+        </ex:hasAbstract>
+        <ex:hasAuthor rdf:resource="http://example.org/jason-wei"/>
+        <ex:hasAuthor rdf:resource="http://example.org/xuezhi-wang"/>
+        <ex:hasAuthor rdf:resource="http://example.org/dale-schuurmans"/>
+        <ex:hasConcept rdf:resource="http://example.org/Chain-of-Thought"/>
+        <ex:hasConcept rdf:resource="http://example.org/Arithmetic-Reasoning"/>
+        <ex:hasReference rdf:resource="http://example.org/cobbe2021-math"/>
+        <ex:hasReference rdf:resource="http://example.org/brown2020-few-shot"/>
+    </rdf:Description>
+
+    <!-- Language Models are Few-Shot Learners -->
+    <rdf:Description rdf:about="http://example.org/FewShotLearners">
+        <rdf:type rdf:resource="http://example.org/Document"/>
+        <ex:hasTitle>Language Models are Few-Shot Learners</ex:hasTitle>
+        <ex:hasAbstract>
+            Introduces GPT-3, a 175 billion parameter language model, and evaluates its ability to perform tasks in zero-shot, one-shot, and few-shot settings. Demonstrates strong performance across diverse NLP tasks without task-specific fine-tuning.
+        </ex:hasAbstract>
+        <ex:hasAuthor rdf:resource="http://example.org/tom-brown"/>
+        <ex:hasAuthor rdf:resource="http://example.org/benjamin-mann"/>
+        <ex:hasAuthor rdf:resource="http://example.org/nick-ryder"/>
+        <ex:hasConcept rdf:resource="http://example.org/Few-Shot-Learning"/>
+        <ex:hasConcept rdf:resource="http://example.org/In-Context-Learning"/>
+        <ex:hasConcept rdf:resource="http://example.org/Generative-AI"/>
+        <ex:hasReference rdf:resource="http://example.org/kaplan2020-scaling-laws"/>
+    </rdf:Description>
+	
+	<rdf:Description rdf:about="http://example.org/ScalingLawsForNeuralLanguageModels">
+		<rdf:type rdf:resource="http://example.org/Document"/>
+		<ex:hasTitle>Scaling Laws for Neural Language Models</ex:hasTitle>
+		<ex:hasAbstract>
+			Explores how increasing compute, data, and parameters improves the performance of neural language models,
+			providing foundational insights for scaling large AI systems.
+		</ex:hasAbstract>
+		<ex:hasAuthor rdf:resource="http://example.org/jared-kaplan"/>
+		<ex:hasAuthor rdf:resource="http://example.org/sam-mccandlish"/>
+		<ex:hasAuthor rdf:resource="http://example.org/tom-henighan"/>
+		<ex:hasConcept rdf:resource="http://example.org/Scaling-Laws"/>
+		<ex:hasConcept rdf:resource="http://example.org/Generative-AI"/>
+	</rdf:Description>
+	
+	<rdf:Description rdf:about="http://example.org/InstructionTuningSurvey">
+		<rdf:type rdf:resource="http://example.org/Document"/>
+		<ex:hasTitle>Instruction Tuning for Large Language Models: A Survey</ex:hasTitle>
+		<ex:hasAbstract>
+			This survey reviews instruction tuning techniques for large language models, covering datasets, methodologies,
+			and challenges in aligning AI systems to user instructions.
+		</ex:hasAbstract>
+		<ex:hasAuthor rdf:resource="http://example.org/shengyu-zhang"/>
+		<ex:hasAuthor rdf:resource="http://example.org/linfeng-dong"/>
+		<ex:hasAuthor rdf:resource="http://example.org/xiaoya-li"/>
+		<ex:hasConcept rdf:resource="http://example.org/Instruction-Tuning"/>
+		<ex:hasConcept rdf:resource="http://example.org/Fine-Tuning"/>
+		<ex:hasConcept rdf:resource="http://example.org/Generative-AI"/>
+	</rdf:Description>
+	
+	<!-- Natural Instructions -->
+<rdf:Description rdf:about="http://example.org/NaturalInstructions">
+    <rdf:type rdf:resource="http://example.org/Document"/>
+    <ex:hasTitle>Natural Instructions: A Benchmark for Task Comprehension and Generalization in Natural Language Processing</ex:hasTitle>
+    <ex:hasAbstract>
+        Natural Instructions is a benchmark designed to evaluate the ability of language models to generalize across diverse tasks. It consists of 61 distinct tasks with a focus on task comprehension through a unified format of instructions, inputs, and outputs.
+    </ex:hasAbstract>
+    <ex:hasAuthor rdf:resource="http://example.org/swaroop-mishra"/>
+    <ex:hasAuthor rdf:resource="http://example.org/daniel-khashabi"/>
+    <ex:hasAuthor rdf:resource="http://example.org/chitta-baral"/>
+    <ex:hasAuthor rdf:resource="http://example.org/hannaneh-hajishirzi"/>
+    <ex:hasConcept rdf:resource="http://example.org/Instruction-Tuning"/>
+    <ex:hasConcept rdf:resource="http://example.org/Task-Generalization"/>
+</rdf:Description>
+
+<!-- PromptSource -->
+<rdf:Description rdf:about="http://example.org/PromptSource">
+    <rdf:type rdf:resource="http://example.org/Document"/>
+    <ex:hasTitle>PromptSource: An Integrated Development Environment and Repository for Natural Language Prompts</ex:hasTitle>
+    <ex:hasAbstract>
+        PromptSource provides a system for creating, sharing, and using natural language prompts. The repository offers over 2,000 prompts for various datasets and facilitates community-driven prompt development.
+    </ex:hasAbstract>
+    <ex:hasAuthor rdf:resource="http://example.org/stephen-bach"/>
+    <ex:hasAuthor rdf:resource="http://example.org/victor-sanh"/>
+    <ex:hasAuthor rdf:resource="http://example.org/zheng-xin-yong"/>
+    <ex:hasAuthor rdf:resource="http://example.org/albert-webson"/>
+    <ex:hasAuthor rdf:resource="http://example.org/colin-raffel"/>
+    <ex:hasConcept rdf:resource="http://example.org/Prompt-Engineering"/>
+    <ex:hasConcept rdf:resource="http://example.org/Few-Shot-Learning"/>
+</rdf:Description>
+
+<!-- Flan Collection -->
+<rdf:Description rdf:about="http://example.org/FlanCollection">
+    <rdf:type rdf:resource="http://example.org/Document"/>
+    <ex:hasTitle>The Flan Collection: Designing Data and Methods for Effective Instruction Tuning</ex:hasTitle>
+    <ex:hasAbstract>
+        The Flan Collection introduces improvements to instruction tuning through a combination of zero-shot, few-shot, and chain-of-thought prompts. It demonstrates significant performance improvements on benchmarks like MMLU and BIG-Bench Hard.
+    </ex:hasAbstract>
+    <ex:hasAuthor rdf:resource="http://example.org/shayne-longpre"/>
+    <ex:hasAuthor rdf:resource="http://example.org/le-hou"/>
+    <ex:hasAuthor rdf:resource="http://example.org/tu-vu"/>
+    <ex:hasAuthor rdf:resource="http://example.org/albert-webson"/>
+    <ex:hasAuthor rdf:resource="http://example.org/hyung-won-chung"/>
+    <ex:hasConcept rdf:resource="http://example.org/Instruction-Tuning"/>
+    <ex:hasConcept rdf:resource="http://example.org/Chain-of-Thought"/>
+</rdf:Description>
+
+
+
+
+    <!-- Author Instances -->
+    <rdf:Description rdf:about="http://example.org/sander-schulhoff">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Sander Schulhoff</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/michael-ilie">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Michael Ilie</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/nishant-balepur">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Nishant Balepur</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/kostantine-kahadze">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Kostantine Kahadze</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/amanda-liu">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Amanda Liu</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/jason-wei">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Jason Wei</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/xuezhi-wang">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Xuezhi Wang</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/dale-schuurmans">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Dale Schuurmans</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/tom-brown">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Tom Brown</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/benjamin-mann">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Benjamin Mann</rdfs:label>
+    </rdf:Description>
+    <rdf:Description rdf:about="http://example.org/nick-ryder">
+        <rdf:type rdf:resource="http://example.org/Author"/>
+        <rdfs:label>Nick Ryder</rdfs:label>
+    </rdf:Description>
+	
+	<rdf:Description rdf:about="http://example.org/jared-kaplan">
+		<rdf:type rdf:resource="http://example.org/Author"/>
+		<rdfs:label>Jared Kaplan</rdfs:label>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/sam-mccandlish">
+		<rdf:type rdf:resource="http://example.org/Author"/>
+		<rdfs:label>Sam McCandlish</rdfs:label>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/tom-henighan">
+		<rdf:type rdf:resource="http://example.org/Author"/>
+		<rdfs:label>Tom Henighan</rdfs:label>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/shengyu-zhang">
+		<rdf:type rdf:resource="http://example.org/Author"/>
+		<rdfs:label>Shengyu Zhang</rdfs:label>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/linfeng-dong">
+		<rdf:type rdf:resource="http://example.org/Author"/>
+		<rdfs:label>Linfeng Dong</rdfs:label>
+	</rdf:Description>
+	<rdf:Description rdf:about="http://example.org/xiaoya-li">
+		<rdf:type rdf:resource="http://example.org/Author"/>
+		<rdfs:label>Xiaoya Li</rdfs:label>
+	</rdf:Description>
+	<!-- Authors for Natural Instructions -->
+<rdf:Description rdf:about="http://example.org/swaroop-mishra">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Swaroop Mishra</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/daniel-khashabi">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Daniel Khashabi</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/chitta-baral">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Chitta Baral</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/hannaneh-hajishirzi">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Hannaneh Hajishirzi</rdfs:label>
+</rdf:Description>
+
+<!-- Authors for PromptSource -->
+<rdf:Description rdf:about="http://example.org/stephen-bach">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Stephen Bach</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/victor-sanh">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Victor Sanh</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/zheng-xin-yong">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Zheng-Xin Yong</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/albert-webson">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Albert Webson</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/colin-raffel">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Colin Raffel</rdfs:label>
+</rdf:Description>
+
+<!-- Authors for Flan Collection -->
+<rdf:Description rdf:about="http://example.org/shayne-longpre">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Shayne Longpre</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/le-hou">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Le Hou</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/tu-vu">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Tu Vu</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:about="http://example.org/hyung-won-chung">
+    <rdf:type rdf:resource="http://example.org/Author"/>
+    <rdfs:label>Hyung Won Chung</rdfs:label>
+</rdf:Description>
+
+<!-- Define the instances of Concept -->
+<rdf:Description rdf:about="http://example.org/Chain-of-Thought">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Chain-of-Thought</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Arithmetic-Reasoning">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Arithmetic-Reasoning</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/In-Context-Learning">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>In-Context-Learning</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Few-Shot-Learning">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Few-Shot-Learning</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Generative-AI">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Generative-AI</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Instruction-Tuning">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Instruction-Tuning</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Fine-Tuning">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Fine-Tuning</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Task-Generalization">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Task-Generalization</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Prompt-Engineering">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Prompt-Engineering</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Scaling-Laws">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Scaling-Laws</rdfs:label>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://example.org/Prompting-Techniques">
+	<rdf:type rdf:resource="http://example.org/Concept"/>
+	<rdfs:label>Prompting-Techniques</rdfs:label>
+</rdf:Description>
+
+
+</rdf:RDF>

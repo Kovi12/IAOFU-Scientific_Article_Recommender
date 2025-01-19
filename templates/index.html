@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Recommender</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Article Recommender</h1>
+
+    <input type="text" id="query" placeholder="Enter title, author, or concept" />
+    <button onclick="search()">Search</button>
+
+    <h2>Articles</h2>
+    <ul id="results">
+        {% for article in articles %}
+            <li>
+                <strong>{{ article.title }}</strong><br>
+                <small>{{ article.abstract }}</small><br>
+                <small>Year: {{ article.year }}</small><br>
+                <small>Citations: {{ article.num_citations }}</small><br>
+                <em>Authors:
+                    {% for author in article.authors %}
+                        <span class="clickable" onclick="searchByType('{{ author }}', 'author')">{{ author }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </em><br>
+                <em>Concepts:
+                    {% for concept in article.concepts %}
+                        <span class="clickable" onclick="searchByType('{{ concept }}', 'concept')">{{ concept }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </em><br>
+                <em>References:
+                    {% for ref in article.references %}
+                        <span class="clickable" onclick="searchByType('{{ ref }}', 'reference')">{{ ref }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </em>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+    <script>
+        function searchByType(query, type) {
+            fetch(`/search?query=${encodeURIComponent(query)}&type=${type}`)
+                .then(response => response.json())
+                .then(data => {
+                    const results = document.getElementById('results');
+                    results.innerHTML = ''; // Clear existing articles
+
+                    data.results.forEach(article => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${article.title}</strong><br>
+                                        <small>${article.abstract}</small><br>
+                                        <small>Year: ${article.year}</small><br>
+                                        <small>Citations: ${article.num_citations}</small><br>
+                                        <em>Authors: ${article.authors.map(author =>
+                                            `<span class="clickable" onclick="searchByType('${author}', 'author')">${author}</span>`).join(', ')}</em><br>
+                                        <em>Concepts: ${article.concepts.map(concept =>
+                                            `<span class="clickable" onclick="searchByType('${concept}', 'concept')">${concept}</span>`).join(', ')}</em><br>
+                                        <em>References: ${article.references.map(ref =>
+                                            `<span class="clickable" onclick="searchByType('${ref}', 'reference')">${ref}</span>`).join(', ')}</em>`;
+                        results.appendChild(li);
+                    });
+                });
+        }
+    </script>
+
+    <style>
+        /* Make clickable elements look like normal text */
+        .clickable {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .clickable:hover {
+            text-decoration: underline; /* Optional: Add subtle feedback on hover */
+        }
+    </style>
+
+</body>
+</html>
