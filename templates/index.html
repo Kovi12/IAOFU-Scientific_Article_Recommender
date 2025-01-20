@@ -13,34 +13,57 @@
     <button onclick="search()">Search</button>
 
     <h2>Articles</h2>
-    <ul id="results">
-        {% for article in articles %}
-            <li>
-                <strong>{{ article.title }}</strong><br>
-                <small>{{ article.abstract }}</small><br>
-                <small>Year: {{ article.year }}</small><br>
-                <small>Citations: {{ article.num_citations }}</small><br>
-                <em>Authors:
-                    {% for author in article.authors %}
-                        <span class="clickable" onclick="searchByType('{{ author }}', 'author')">{{ author }}</span>{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </em><br>
-                <em>Concepts:
-                    {% for concept in article.concepts %}
-                        <span class="clickable" onclick="searchByType('{{ concept }}', 'concept')">{{ concept }}</span>{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </em><br>
-                <em>References:
-                    {% for ref in article.references %}
-                        <span class="clickable" onclick="searchByType('{{ ref }}', 'reference')">{{ ref }}</span>{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </em>
-            </li>
-        {% endfor %}
-    </ul>
+        <ul id="results">
+            {% for article in articles %}
+                <li>
+                    <strong>{{ article.title }}</strong><br>
+                    <small>{{ article.abstract }}</small><br>
+                    <small>Year: {{ article.year }}</small><br>
+                    <small>Citations: {{ article.num_citations }}</small><br>
+                    <em>Authors:
+                        {% for author in article.authors %}
+                            <span class="clickable" onclick="searchByType('{{ author }}', 'author')">{{ author }}</span>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </em><br>
+                    <em>Concepts:
+                        {% for concept in article.concepts %}
+                            <span class="clickable" onclick="searchByType('{{ concept }}', 'concept')">{{ concept }}</span>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </em><br>
+                    <em>References:
+                        {% for ref in article.references %}
+                            <span class="clickable" onclick="searchByType('{{ ref }}', 'reference')">{{ ref }}</span>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </em>
+                </li>
+            {% endfor %}
+        </ul>
 
 
     <script>
+        function search() {
+            const query = document.getElementById('query').value;
+            fetch(`/search?query=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    const results = document.getElementById('results');
+                    results.innerHTML = ''; // Clear existing articles
+                    data.results.forEach(article => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<strong>${article.title}</strong><br>
+                                        <small>${article.abstract}</small><br>
+                                        <small>Year: ${article.year}</small><br>
+                                        <small>Citations: ${article.num_citations}</small><br>
+                                        <em>Authors: ${article.authors.map(author =>
+                                            `<span class="clickable" onclick="searchByType('${author}', 'author')">${author}</span>`).join(', ')}</em><br>
+                                        <em>Concepts: ${article.concepts.map(concept =>
+                                            `<span class="clickable" onclick="searchByType('${concept}', 'concept')">${concept}</span>`).join(', ')}</em><br>
+                                        <em>References: ${article.references.map(ref =>
+                                            `<span class="clickable" onclick="searchByType('${ref}', 'reference')">${ref}</span>`).join(', ')}</em>`;
+                        results.appendChild(li);
+                    });
+                });
+        }
         function searchByType(query, type) {
             fetch(`/search?query=${encodeURIComponent(query)}&type=${type}`)
                 .then(response => response.json())

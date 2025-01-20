@@ -28,41 +28,48 @@ def add_if_not_exists(graph, subject, predicate, obj):
 def add_article_to_ontology(article_data, graph):
     for doi, details in article_data.items():
         # Create a URI for the article
-        article_uri = URIRef(f"http://example.org/{details['id']}")
+        article_uri = URIRef(f"http://example.org/{details['doi']}")
         add_if_not_exists(graph, article_uri, RDF.type, EX.Document)
 
         # Add title
-        add_if_not_exists(graph, article_uri, EX.hasTitle, Literal(details['title']))
+        if "title" in details:
+            add_if_not_exists(graph, article_uri, EX.hasTitle, Literal(details['title']))
+
+        # Add abstract
+        if "abstract" in details:
+            add_if_not_exists(graph, article_uri, EX.hasAbstract, Literal(details['abstract']))
 
         # Add year
         if "year" in details:
-            add_if_not_exists(graph, article_uri, EX.hasYear, Literal(details['year'], datatype=RDF.integer))
+            add_if_not_exists(graph, article_uri, EX.hasYear, Literal(details['year']))
 
         # Add number of citations
         if "num_citations" in details:
-            add_if_not_exists(graph, article_uri, EX.hasCitations, Literal(details['num_citations'], datatype=RDF.integer))
+            add_if_not_exists(graph, article_uri, EX.hasCitations, Literal(details['num_citations']))
 
         # Add authors as instances and link to the article
-        authors = [author.strip() for author in details['authors'].replace("and", ",").split(",")]
-        for author_name in authors:
-            author_uri = format_uri(author_name)
-            add_if_not_exists(graph, author_uri, RDF.type, EX.Author)
-            add_if_not_exists(graph, author_uri, RDFS.label, Literal(author_name))
-            add_if_not_exists(graph, article_uri, EX.hasAuthor, author_uri)
+        if "authors" in details:
+            authors = [author.strip() for author in details['authors'].replace("and", ",").split(",")]
+            for author_name in authors:
+                author_uri = format_uri(author_name)
+                add_if_not_exists(graph, author_uri, RDF.type, EX.Author)
+                add_if_not_exists(graph, author_uri, RDFS.label, Literal(author_name))
+                add_if_not_exists(graph, article_uri, EX.hasAuthor, author_uri)
 
         # Add concepts (categories, subjects, and top_terms)
-        concepts = [details['category']] + details.get('subjects', []) + details.get('top_terms', [])
-        for concept_name in concepts:
+        concepts = [details.get('category', '')] + details.get('subjects', []) + details.get('top_terms', [])
+        for concept_name in filter(None, concepts):  # Avoid adding empty strings
             concept_uri = format_uri(concept_name)
             add_if_not_exists(graph, concept_uri, RDF.type, EX.Concept)
             add_if_not_exists(graph, concept_uri, RDFS.label, Literal(concept_name))
             add_if_not_exists(graph, article_uri, EX.hasConcept, concept_uri)
 
         # Add references
-        for reference in details.get('references', []):
-            reference_uri = URIRef(f"http://example.org/{reference.replace('/', '_')}")
-            add_if_not_exists(graph, reference_uri, RDF.type, EX.Document)  # Treat references as articles
-            add_if_not_exists(graph, article_uri, EX.hasReference, reference_uri)
+        if "references" in details:
+            for reference in details['references']:
+                reference_uri = URIRef(f"http://example.org/{reference.replace('/', '_')}")
+                add_if_not_exists(graph, reference_uri, RDF.type, EX.Document)  # Treat references as articles
+                add_if_not_exists(graph, article_uri, EX.hasReference, reference_uri)
 
         # Add DOI as an additional identifier
         add_if_not_exists(graph, article_uri, EX.hasDOI, Literal(doi))
@@ -72,7 +79,7 @@ def add_article_to_ontology(article_data, graph):
 # Main function to load JSON and process articles
 def main():
     # Load JSON data
-    json_file = "articles.json"
+    json_file = "data/articles.json"
     try:
         with open(json_file, "r") as f:
             article_data = json.load(f)
