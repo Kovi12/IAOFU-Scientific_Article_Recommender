@@ -69,6 +69,7 @@ def get_articles(limit=None):
             title = next(graph.objects(doc, EX.hasTitle), None)
             abstract = next(graph.objects(doc, EX.hasAbstract), None)
             year = next(graph.objects(doc, EX.hasYear), None)
+            doi = next(graph.objects(doc, EX.hasDOI), None)
             num_citations = next(graph.objects(doc, EX.hasCitations), None)
             authors = [get_label(author) for author in graph.objects(doc, EX.hasAuthor)]
             concepts = [get_label(concept) for concept in graph.objects(doc, EX.hasConcept)]
@@ -82,6 +83,7 @@ def get_articles(limit=None):
                 'authors': authors,
                 'concepts': concepts,
                 'references': references,
+                'doi': doi
             })
 
         logging.info(f"Total articles fetched: {len(articles)}")
@@ -136,7 +138,8 @@ def search():
                     'num_citations': str(num_citations) if num_citations else len(references),
                     'authors': authors,
                     'concepts': concepts,
-                    'references': references
+                    'references': references,
+                    'doi': doi
                 })
                 seen.add(doc)
 
@@ -148,7 +151,8 @@ def search():
                     'num_citations': str(num_citations) if num_citations else len(references),
                     'authors': authors,
                     'concepts': concepts,
-                    'references': references
+                    'references': references,
+                    'doi': doi
                 })
                 seen.add(doc)
 
@@ -160,7 +164,8 @@ def search():
                     'num_citations': str(num_citations) if num_citations else len(references),
                     'authors': authors,
                     'concepts': concepts,
-                    'references': references
+                    'references': references,
+                    'doi': doi
                 })
                 seen.add(doc)
 
@@ -172,7 +177,8 @@ def search():
                     'num_citations': str(num_citations) if num_citations else len(references),
                     'authors': authors,
                     'concepts': concepts,
-                    'references': references
+                    'references': references,
+                    'doi': doi
                 })
                 seen.add(doc)
 

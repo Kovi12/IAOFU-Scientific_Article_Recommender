@@ -19,6 +19,7 @@
                     <strong>{{ article.title }}</strong><br>
                     <small>{{ article.abstract }}</small><br>
                     <small>Year: {{ article.year }}</small><br>
+                    <small>DOI: {{ article.doi }}</small><br>
                     <small>Citations: {{ article.num_citations }}</small><br>
                     <em>Authors:
                         {% for author in article.authors %}
@@ -53,6 +54,7 @@
                         li.innerHTML = `<strong>${article.title}</strong><br>
                                         <small>${article.abstract}</small><br>
                                         <small>Year: ${article.year}</small><br>
+                                        <small>DOI: ${article.doi}</small><br>
                                         <small>Citations: ${article.num_citations}</small><br>
                                         <em>Authors: ${article.authors.map(author =>
                                             `<span class="clickable" onclick="searchByType('${author}', 'author')">${author}</span>`).join(', ')}</em><br>
@@ -76,6 +78,7 @@
                         li.innerHTML = `<strong>${article.title}</strong><br>
                                         <small>${article.abstract}</small><br>
                                         <small>Year: ${article.year}</small><br>
+                                        <small>DOI: ${article.doi}</small><br>
                                         <small>Citations: ${article.num_citations}</small><br>
                                         <em>Authors: ${article.authors.map(author =>
                                             `<span class="clickable" onclick="searchByType('${author}', 'author')">${author}</span>`).join(', ')}</em><br>
