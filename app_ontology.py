@@ -40,13 +40,11 @@ RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 # Helper function to fetch labels or titles for references
 def resolve_reference(uri):
     """Resolve the reference to its title or fallback to the URI as a string."""
-    if (uri, RDF.type, EX.Document) in graph:
-        # Try to fetch the title of the document
-        title = next(graph.objects(uri, EX.hasTitle), None)
-        if title:
-            return str(title)
-    # If not a document or no title, return the URI or its label
-    return get_label(uri)
+    # Remove the base URI part if it's present (http://example.org/)
+    uri_str = str(uri)
+    if uri_str.startswith("http://example.org/"):
+        return uri_str.replace("http://example.org/", "")
+    return uri_str
 
 # Helper function to fetch labels for URIs
 def get_label(uri):
@@ -83,7 +81,7 @@ def get_articles(limit=None):
                 'authors': authors,
                 'concepts': concepts,
                 'references': references,
-                'doi': doi
+                'doi': str(doi) if doi else 'No DOI',
             })
 
         logging.info(f"Total articles fetched: {len(articles)}")
@@ -139,9 +137,9 @@ def search():
                     'authors': authors,
                     'concepts': concepts,
                     'references': references,
-                    'doi': doi
+                    'doi': str(doi) if doi else 'No DOI',
                 })
-                seen.add(doc)
+                seen = set(list(seen) + [doc])
 
             elif search_type == 'concept' and any(query == concept.lower() for concept in concepts):
                 results.append({
@@ -152,10 +150,22 @@ def search():
                     'authors': authors,
                     'concepts': concepts,
                     'references': references,
-                    'doi': doi
+                    'doi': str(doi) if doi else 'No DOI',
                 })
-                seen.add(doc)
+                seen = set(list(seen) + [doc])
 
+            elif query == str(doi):
+                results.append({
+                    'title': str(title) if title else 'No Title',
+                    'abstract': str(abstract) if abstract else 'No Abstract',
+                    'year': str(year) if year else 'Unknown',
+                    'num_citations': str(num_citations) if num_citations else len(references),
+                    'authors': authors,
+                    'concepts': concepts,
+                    'references': references,
+                    'doi': str(doi) if doi else 'No DOI',
+                })
+                seen = set([doc] + list(seen))
             elif search_type == 'reference' and any(query == reference.lower() for reference in references) or query == doi:
                 results.append({
                     'title': str(title) if title else 'No Title',
@@ -165,9 +175,9 @@ def search():
                     'authors': authors,
                     'concepts': concepts,
                     'references': references,
-                    'doi': doi
+                    'doi': str(doi) if doi else 'No DOI',
                 })
-                seen.add(doc)
+                seen = set(list(seen) + [doc])
 
             elif any(query == detail.lower() for detail in references + concepts + authors) or query in (str(title).lower() if title else ''):
                 results.append({
@@ -178,9 +188,9 @@ def search():
                     'authors': authors,
                     'concepts': concepts,
                     'references': references,
-                    'doi': doi
+                    'doi': str(doi) if doi else 'No DOI',
                 })
-                seen.add(doc)
+                seen = set(list(seen) + [doc])
 
         logging.debug(f"Search results count: {len(results)}")
     except Exception as e:
